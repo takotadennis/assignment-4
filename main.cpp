@@ -2,15 +2,17 @@
 
 // TODO If you'd like to include any other header files, do so right below
 // this comment
-
+#include <string>
 
 /* BEGINNING OF TEMPLATE CODE; DO NOT MODIFY */
 
 
 
 
+
 #include <sstream>
 #include <iostream>
+
 
 #define CPPHTTPLIB_OPENSSL_SUPPORT
 #include "cpp-httplib/httplib.h"
@@ -282,16 +284,17 @@ std::string query_pronunciation(std::string word) {
 
 
 /* END OF TEMPLATE CODE */
-
+// TODO Your code goes below this comment.
 /*
 Function: extract_example
 Description: Extracts the first example sentence available in the given
 JSON response from the dictionaryapi.dev 
-*/
+*/ 
+#include <string>
 std::string extract_example(const Json words) 
 {
 	const Json::array& word_arr = words.array_items();
-	for (const Json& wprd : word_arr) {
+	for (const Json& word : word_arr) {
 		const Json& meanings = word["meanings"];
 		const Json::array& meaning_arr = meanings.array_items();
 
@@ -304,12 +307,77 @@ std::string extract_example(const Json words)
 				//Targeting the example field in the Json respponse
 				const std::string example = 
 					thesaurus_entry["example"].string_value();
+				
+				if (!example.empty()) 
+				{ return example;
+				}
+
 			}
 
 		}
 	}
+	return "";
 }
-// TODO Your code goes below this comment.
+
+// Now this function: query_example
+// What it is: Queries an example sentence of a given word, and then returns it
+
+std::string query_example(std::string word)
+{
+	httplib::Client cli(DICTIONARY_API_HOST);
+	auto res = cli.Get(build_request_endpoint(word));
+
+	if (res->status !=200) 
+	{
+		return "";
+	}
+	std::string err;
+	const Json words = Json::parse(res->body, err);
+	if (!err.empty()) {
+		return "";
+	}
+	//then I called the custom extration function 
+	std::string example = extract_example(words);
+	return example;
+}
+/*
+To print the main menu options to the terminal:
+*/
+void print_menu()
+{
+	std::cout << "This is the Dictionary API Client! Please select an option from the menu below: "
+	          << "1. Look up a definition"
+			  << "2. Look up an audio URL"
+			  << "3. Look up a pronunciation"
+			  << "4. Look up an example sentence"
+			  << "5. Exit the program";
+}
+
+/*
+Prompts the user for the input and returns their response as a string
+which helps prevent infinite loops in the case that the user types a letter rather
+than a number.
+*/
+
+std::string get_user_input(const std::string& prompt_text)
+{
+	std::cout << prompt_text;
+	std::string input;
+	std::cin >> input;
+	return input;
+}
+
+// This part will evalutate the actual API result and print it or a clean ERROR message
+void handle_query_result(const std::string& result)
+{
+	if (result.empty()) {
+		std::cout << "Sorry, that information could not be found for "
+				  << "the requested word. " ;
+	} else {
+		std::cout << "result: " << result << "";
+	}
+}
+
 
 int main() {
 	// Commented below are examples of how to use the provided template
@@ -335,4 +403,41 @@ int main() {
 
 	// TODO Your program starts here. Of course, you should write other
 	// functions as well.
+	bool is_running = true;
+	while (is_running) 
+	{
+		print_menu();
+		// grab the menu choice as a string
+		std::string choice = get_user_input("Please enter your choice: ");
+		if (choice == "5") {
+			is_running = false;
+		} else if (choice == "1" || choice == "2" || choice == "3" ||
+		choice == "4") {
+			
+			std::string word = get_user_input("Go ahead and enter a word to look up: ");
+			std::string api_result;
+			// rout the word to the correct API function based on the menu choice
+			if (choice == "1") {
+				api_result = query_definition(word);
+			} else if (choice == "2") {
+				api_result = query_audio_url(word);
+			} else if (choice == "3") {
+				api_result = query_pronunciation(word);
+			} else if (choice == "4") {
+				api_result = query_example(word);
+			}
+
+			//print the actual result to the screen/termnial
+			handle_query_result(api_result);
+
+		} else {
+			//error for handling invalid menu choices
+			std::cout << "Sorry, that isn't a valid input, please enter a "
+			          << " number between 1 and 5. Thanks! ";
+		}
+
+		}
+		
+		return 0;
 }
+		
