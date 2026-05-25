@@ -283,6 +283,32 @@ std::string query_pronunciation(std::string word) {
 
 /* END OF TEMPLATE CODE */
 
+/*
+Function: extract_example
+Description: Extracts the first example sentence available in the given
+JSON response from the dictionaryapi.dev 
+*/
+std::string extract_example(const Json words) 
+{
+	const Json::array& word_arr = words.array_items();
+	for (const Json& wprd : word_arr) {
+		const Json& meanings = word["meanings"];
+		const Json::array& meaning_arr = meanings.array_items();
+
+		for (const Json& meaning : meaning_arr) {
+			const Json thesaurus_entries = meaning["defnitions"];
+			const Json::array& thesaurus_entry_arr =
+			thesaurus_entries.array_items();
+
+			for (const Json& thesaurus_entry : thesaurus_entry_arr) {
+				//Targeting the example field in the Json respponse
+				const std::string example = 
+					thesaurus_entry["example"].string_value();
+			}
+
+		}
+	}
+}
 // TODO Your code goes below this comment.
 
 int main() {
