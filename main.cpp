@@ -299,7 +299,7 @@ std::string extract_example(const Json words)
 		const Json::array& meaning_arr = meanings.array_items();
 
 		for (const Json& meaning : meaning_arr) {
-			const Json thesaurus_entries = meaning["defnitions"];
+			const Json thesaurus_entries = meaning["definitions"];
 			const Json::array& thesaurus_entry_arr =
 			thesaurus_entries.array_items();
 
@@ -345,12 +345,12 @@ To print the main menu options to the terminal:
 */
 void print_menu()
 {
-	std::cout << "This is the Dictionary API Client! Please select an option from the menu below: "
-	          << "1. Look up a definition"
-			  << "2. Look up an audio URL"
-			  << "3. Look up a pronunciation"
-			  << "4. Look up an example sentence"
-			  << "5. Exit the program";
+	std::cout << "This is the Dictionary API Client! Please select an option from the menu below: " << std::endl
+	          << "1. Look up a definition" << std::endl
+			  << "2. Look up an audio URL" << std::endl
+			  << "3. Look up a pronunciation" << std::endl
+			  << "4. Look up an example sentence" << std::endl
+			  << "5. Exit the program" << std::endl;
 }
 
 /*
@@ -374,7 +374,7 @@ void handle_query_result(const std::string& result)
 		std::cout << "Sorry, that information could not be found for "
 				  << "the requested word. " ;
 	} else {
-		std::cout << "result: " << result << "";
+		std::cout << "result: " << result << std::endl;
 	}
 }
 
