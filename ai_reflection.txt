@@ -1,0 +1,22 @@
+/* 
+Two things the AI did well:
+
+
+Two things that were potential problems:
+
+- It used an int for the menu input. THe assignment specifically warned against
+what would happen if I did that, because if the user types a letter by accident
+the user will get stuck in that loop of doom.
+
+- for whatever reason the AI ignored the extra credit requirement for the example
+sentennce? And the error meassages are just "Not found" instead of being more clean
+and legible.
+
+Would I trust this in a real project or no?
+No, I wouldnt trust this code in a work environment because even 
+though it has a nice structure, the error handling doesnt exxist. 
+Which means a real user making one typo could crash the app, which 
+goes against the main thing of the assignment, DO BETTER AI!!
+
+
+*/
