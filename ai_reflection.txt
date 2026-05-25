@@ -1,6 +1,11 @@
 /* 
 Two things the AI did well:
 
+- It put the menu text in its own like "displauMenu()" function rather than
+clogging up main, which keeps things nice and tidy.
+
+- The while loop it used is very easy to read and exits cleanly with a simple
+break statement, which was pretty smart.
 
 Two things that were potential problems:
 
