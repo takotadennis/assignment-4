@@ -372,7 +372,7 @@ void handle_query_result(const std::string& result)
 {
 	if (result.empty()) {
 		std::cout << "Sorry, that information could not be found for "
-				  << "the requested word. " ;
+				  << "the requested word. " << std::endl;
 	} else {
 		std::cout << "result: " << result << std::endl;
 	}
@@ -432,8 +432,8 @@ int main() {
 
 		} else {
 			//error for handling invalid menu choices
-			std::cout << "Sorry, that isn't a valid input, please enter a "
-			          << " number between 1 and 5. Thanks! ";
+			std::cout << "Sorry, that isn't a valid input, please enter a " << std::endl
+			          << " number between 1 and 5. Thanks! " << std::endl;
 		}
 
 		}
