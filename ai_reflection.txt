@@ -13,9 +13,9 @@ Two things that were potential problems:
 what would happen if I did that, because if the user types a letter by accident
 the user will get stuck in that loop of doom.
 
-- for whatever reason the AI ignored the extra credit requirement for the example
-sentennce? And the error meassages are just "Not found" instead of being more clean
-and legible.
+- For whatever reason the AI ignored the extra credit requirement for the example
+sentence? And the error meassages are just "Not found" instead of being more clean
+and legible. Also it wont pull from the actual dictionary, it just gives samples.
 
 Would I trust this in a real project or no?
 No, I wouldnt trust this code in a work environment because even 
